@@ -1,19 +1,19 @@
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from flask import Flask, request, jsonify
-print("Flask is running... Routes are being registered.")
 
+# ================================
 # Cipher Imports
-from cipher.caesar import CaesarCipher
-from cipher.Vigenere.vigenere_cipher import VigenereCipher
-from cipher.playfair.playfair_cipher import PlayfairCipher
+from cipher.caesar.caesar_cipher import CaesarCipher
+from cipher.Vigenere.vigenere_cipher import VigenereCipher 
+# from cipher.playfair.playfair_cipher import PlayfairCipher  # ← lỗi: chưa có file này
 
-app = Flask(__name__)  # 
-# =========================
-# = CAESAR CIPHER ROUTES =
-# =========================
+app = Flask(__name__)
+
+# ================================
+# CAESAR CIPHER ALGORITHM
 caesar_cipher = CaesarCipher()
 
 @app.route("/api/caesar/encrypt", methods=["POST"])
@@ -32,10 +32,8 @@ def caesar_decrypt():
     decrypted_text = caesar_cipher.decrypt_text(cipher_text, key)
     return jsonify({'decrypted_message': decrypted_text})
 
-
-# ============================
-# = VIGENERE CIPHER ROUTES =
-# ============================
+# ================================
+# VIGENERE CIPHER ALGORITHM
 vigenere_cipher = VigenereCipher()
 
 @app.route("/api/vigenere/encrypt", methods=["POST"])
@@ -54,32 +52,6 @@ def vigenere_decrypt():
     decrypted_text = vigenere_cipher.decrypt_text(cipher_text, key)
     return jsonify({'decrypted_message': decrypted_text})
 
-
-
-# ============================
-# = PLAYFAIR CIPHER ROUTES ==
-# ============================
-@app.route("/api/playfair/encrypt", methods=["POST"])
-def playfair_encrypt():
-    data = request.json
-    plain_text = data['plain_text']
-    key = data['key']
-    playfair = PlayfairCipher(key)
-    encrypted_text = playfair.encrypt(plain_text)
-    return jsonify({'encrypted_message': encrypted_text})
-
-@app.route("/api/playfair/decrypt", methods=["POST"])
-def playfair_decrypt():
-    data = request.json
-    cipher_text = data['cipher_text']
-    key = data['key']
-    playfair = PlayfairCipher(key)
-    decrypted_text = playfair.decrypt(cipher_text)
-    return jsonify({'decrypted_message': decrypted_text})
-
-
-# ============================
-# = RUN APP =
-# ============================
 if __name__ == "__main__":
-    app.run(debug=True)
+    print("Flask is running... Routes are being registered.")
+    app.run(host="0.0.0.0", port=5000, debug=True)
