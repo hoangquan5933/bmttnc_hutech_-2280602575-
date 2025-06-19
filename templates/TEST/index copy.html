@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <img src="TEST/hutech_logo.png" alt="Logo HUTECH">
+<img src="TEST/hutech_30_year_logo.png" alt="Logo 30 Năm HUTECH">
+    <title>THBMTTNC - Các Thuật Toán Mã Hóa</title>
+    <style>
+        /* CSS cho popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .form-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>THBMTTNC - Các Thuật Toán Mã Hóa</h1>
+    <button onclick="openForm('caesar')">Caesar Cipher</button>
+    <button onclick="openForm('railfence')">RailFence Cipher</button>
+    <button onclick="openForm('playfair')">Playfair Cipher</button>
+    <button onclick="openForm('vigenere')">Vigenere Cipher</button>
+
+    <div id="formPopup" class="popup">
+        <div class="form-content">
+            <span class="close" onclick="closeForm()">&times;</span>
+            <h2 id="formTitle">Caesar Cipher</h2>
+            <form>
+                <label for="fullname">Fullname:</label>
+                <input type="text" id="fullname" name="fullname" required>
+                <label for="mssv">MSSV:</label>
+                <input type="text" id="mssv" name="mssv" required>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openForm(algorithm) {
+            document.getElementById("formPopup").style.display = "flex";
+            document.getElementById("formTitle").innerText = algorithm.charAt(0).toUpperCase() + algorithm.slice(1) + " Cipher";
+        }
+
+        function closeForm() {
+            document.getElementById("formPopup").style.display = "none";
+        }
+    </script>
+</body>
+</html>
